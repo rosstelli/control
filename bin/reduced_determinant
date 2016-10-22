@@ -13,4 +13,4 @@ fi
 # Octave has a tendency to hang on large CRNs, which prevents it exiting when this wrapper script does.
 # To work around this, make sure to kill it if we reach the timeout.
 trap 'kill -KILL $(jobs -pr)' TERM
-echo "warning('off');reduced_determinant('$1');" | $OCTAVE --quiet --no-history --no-window-system
+echo "warning('off');reduced_determinant('$1', true);" | $OCTAVE --quiet --no-history --no-window-system

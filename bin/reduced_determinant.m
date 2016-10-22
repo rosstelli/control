@@ -7,21 +7,27 @@
 % This file creates appropriate tags for HTML formatting.
 
 
-function [reduced_determinant_val] = reduced_determinant(txtName)
+function [reduced_determinant_val] = reduced_determinant(txtName, doMassAction)
 
 % Setup the font.
 fprintf(stdout(), "<p style='font-family: monospace;'>\n");
 
 % Parse the file
-[r, c, Gamma, V_num] = human_parser(txtName);
-V = general_kinetics(r, c, V_num);
-MA = mass_action(r, c, V_num);
+[compounds, lhs, rhs] = human_parser(txtName);
+Gamma = rhs - lhs;
 
-fprintf(stdout(), "<br/><br/>    Reduced Determinant Using General Kinetics<br/><br/><br/>\n");
-disp(reduced_determinant_calc(Gamma, V));
 
-fprintf(stdout(), "<br/><br/>    Reduced Determinant Using Mass Action<br/><br/><br/>\n");
-disp(reduced_determinant_calc(Gamma, MA));
+if doMassAction
+    MA = mass_action(lhs);
+    fprintf(stdout(), "<br/><br/>    Reduced Determinant Using Mass Action<br/><br/><br/>\n");
+    reduced_determinant_val = reduced_determinant_calc(Gamma, MA);
+else 
+    V = general_kinetics(lhs);
+    fprintf(stdout(), "<br/><br/>    Reduced Determinant Using General Kinetics<br/><br/><br/>\n");
+    reduced_determinant_val = reduced_determinant_calc(Gamma, V);
+end
+disp(reduced_determinant_val);
+
 
 % End the formatting.
 fprintf(stdout(), "\n</p><br/><br/><br/>\n");

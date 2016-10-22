@@ -3,7 +3,7 @@
 # output is left stoichiometric matrix 
 # right stoichiometric matrix 
 
-function [reactions, compounds, Gamma, V_numeric] = human_parser(txtName)
+function [compounds, lhs_matrix, rhs_matrix] = human_parser(txtName)
 pkg load symbolic;
 # [ K, S, reactants, targets, gamma]
 
@@ -13,20 +13,16 @@ reactions = [""];
 compounds = javaObject("java.util.Hashtable");
 
 fid = fopen(txtName);
-
+side_flags = [];
 # Go through the file, line by line
 tline = fgets(fid);
 while ischar(tline)
-    disp("line:")
-    fprintf(stdout(), "<br/>");
-    disp(tline)
-    fprintf(stdout(), "<br/>");
     if isempty(tline) tline = fgets(fid); continue end
     num_of_reactions = num_of_reactions + 1;
     single_reaction = true;
     
     
-    tline = strrep(tline, "\n", "")
+    tline = strrep(tline, "\n", "");
     spaces = [1 strfind(tline, ' ') length(tline)];
     for ii=1:(length(spaces)-1) 
         
@@ -40,14 +36,18 @@ while ischar(tline)
         end
         #Remove the coefficient you found.
         substring = substring(count:length(substring));
-        
-        if ~(strcmp(substring, "-->") || strcmp(substring, "<-->") || strcmp(substring, "<--") || strcmp(substring, "+")) && isempty(compounds.get(substring))
+        if strcmp(substring, "<--")
+            side_flags = [side_flags, false];
+        elseif strcmp(substring, "-->")
+            side_flags = [side_flags, true];
+        elseif ~(strcmp(substring, "-->") || strcmp(substring, "<-->") || strcmp(substring, "<--") || strcmp(substring, "+")) && isempty(compounds.get(substring))
             num_of_compounds = num_of_compounds + 1;
             compounds.put(substring, num_of_compounds);
         elseif (strcmp(substring, "<-->"))
             single_reaction = false;
             num_of_reactions = num_of_reactions + 1;
             reactions = [reactions; regexprep(tline, '<', ''); regexprep(tline, '>', '')];
+            side_flags = [side_flags, true, false];
         end 
  
     end
@@ -60,19 +60,18 @@ end
 
 fclose(fid);
 
-#reactions = cellstr(reactions);
+if length(side_flags) != num_of_reactions
+    fprintf(stdout(), "ERROR: FLAGS MISCOUNTED!");
+end
 
 # Calculate Matrices
-Gamma = zeros(num_of_compounds, num_of_reactions);
-V_numeric = zeros(num_of_reactions, num_of_compounds);
+lhs_matrix = zeros(num_of_compounds, num_of_reactions);
+rhs_matrix = zeros(num_of_compounds, num_of_reactions);
 
 for rxn=1:num_of_reactions
     curr = reactions(rxn,:);
     spaces = [1 strfind(curr, ' ') length(curr)];
-    side_G=1;
-    side_V=1;
     for ii=1:(length(spaces)-1) 
-        
         substring = strtrim(curr((spaces(ii)):(spaces(ii+1))));
 
         if strcmp(substring, "") continue end
@@ -93,22 +92,25 @@ for rxn=1:num_of_reactions
         substring = substring(count:length(substring));
         
         compound = compounds.get(substring);
-        if ~isempty(compound)
-            #compound = compounds.get(substring);
-            Gamma(compound,rxn) = (side_G * coefficient);
-            V_numeric(rxn,compound) = side_V;
-        elseif strcmp(substring, "-->")
-            side_V=0;
-            Gamma(:,rxn)=-1*Gamma(:,rxn) + 0;
+        
+        
+        if strcmp(substring, "-->")
+            side_flags(rxn) = !side_flags(rxn);
+            coefficient = 0;
         elseif strcmp(substring, "<--")
-            side_G=-1;
-            V_numeric(rxn,:)=0;
+            side_flags(rxn) = !side_flags(rxn);
+            coefficient = 0;
         elseif strcmp(substring, "<-->")
             fprintf(stdout(), "<br/>Warning: Attempting to parse reversible reactions.<br/>");
         end
+        if isempty(compound)
+            #do nothing
+        elseif side_flags(rxn)
+            lhs_matrix(compound, rxn) = coefficient;
+        else
+            rhs_matrix(compound, rxn) = coefficient;
+        end
     end
 end
-
-
 
 end

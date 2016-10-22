@@ -1,15 +1,16 @@
-function [V_gen] = general_kinetics (reactions, compounds, V_numeric)
 
-reactions(1,:)
-num_of_reactions = length(reactions(:,1))
-num_of_compounds = compounds.size();
+
+function [V_gen] = general_kinetics (lhs_matrix)
+
+num_of_reactions = size(lhs_matrix, 2);
+num_of_compounds = size(lhs_matrix, 1);
 
 counter = 1;
-#V = zeros(num_of_reactions, num_of_compounds);
+
 V_gen = repmat(sym("0"), num_of_reactions, num_of_compounds);
 for ii=1:num_of_reactions
     for jj=1:num_of_compounds
-        if V_numeric(ii,jj)
+        if lhs_matrix(jj,ii)
             V_gen(ii,jj) = sym(["x_", num2str(counter), "^1"]);
             counter = counter + 1;
         else 
