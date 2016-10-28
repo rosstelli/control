@@ -48,7 +48,7 @@ reduced_determinant_val = sym("0");
 combos = nchoosek(1:n, r);
 
 % take all different arrangements of prinicpal minors
-for ii=1:length(combos)
+for ii=1:size(combos, 1)
   reduced_determinant_val = det(product(combos(ii, :),
           combos(ii, :))) + reduced_determinant_val;
 end

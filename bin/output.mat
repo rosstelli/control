@@ -1,0 +1,90 @@
+# Created by Octave 4.0.2, Thu Oct 27 16:15:35 2016 EDT <ross@ross-VirtualBox>
+# name: test
+# type: class
+# classname: sym
+# length: 6
+# name: ascii
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+k_1*k_2*k_3
+
+
+
+
+
+# name: extra
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 0
+# columns: 0
+
+
+
+
+
+# name: flat
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 11
+k_1*k_2*k_3
+
+
+
+
+
+# name: pickle
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 48
+Mul(Symbol('k_1'), Symbol('k_2'), Symbol('k_3'))
+
+
+
+
+
+# name: size
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 1
+# columns: 2
+ 1 1
+
+
+
+
+
+# name: unicode
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: sq_string
+# elements: 1
+# length: 18
+k₁⋅k₂⋅k₃
+
+
+
+
+
+
+

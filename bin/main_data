@@ -1,0 +1,85 @@
+Number of variables: 2
+Variables:  x y
+Rank: 1
+
+----------DIMENSION 1----------
+
+NONSINGULAR SOLUTIONS
+---------------
+Path number: 0
+Component number: 0
+Estimated condition number: 1.000000e+00
+5.362575485280845e-01 -7.292548593580304e-01
+5.663361767032840e-01 -3.384914582697169e-01
+Multiplicity: 1
+Deflations needed: 0
+---------------
+Path number: 1
+Component number: 0
+Estimated condition number: 1.000000e+00
+-4.863664191048999e-01 -9.448183714059997e-01
+-3.801585648327893e-01 -4.106837335944653e-01
+Multiplicity: 1
+Deflations needed: 0
+---------------
+Path number: 2
+Component number: 0
+Estimated condition number: 1.000000e+00
+6.859006692153389e-01 7.169938210055813e-01
+8.734857454375279e-01 9.459098955989761e-01
+Multiplicity: 1
+Deflations needed: 0
+---------------
+Path number: 3
+Component number: 0
+Estimated condition number: 1.000000e+00
+-1.112497084247111e+00 5.571058511672913e-02
+-8.246702234919139e-01 5.648596964427541e-01
+Multiplicity: 1
+Deflations needed: 0
+---------------
+Path number: 4
+Component number: 0
+Estimated condition number: 1.000000e+00
+-3.993460053428260e-01 1.019039797678233e+00
+-6.769201639847477e-02 1.347252029844686e+00
+Multiplicity: 1
+Deflations needed: 0
+---------------
+Path number: 5
+Component number: 0
+Estimated condition number: 1.000000e+00
+7.760512909514130e-01 -1.176709730365130e-01
+8.551595323479595e-01 1.836089699231236e-01
+Multiplicity: 1
+Deflations needed: 0
+
+
+*************** input file needed to reproduce this run ***************
+
+CONFIG
+
+TrackType: 1;
+CoeffBound: 1.000000000000e+00;
+DegreeBound: 6.000000000000e+00;
+RandomSeed: 1477623892;
+
+END;
+
+INPUT
+
+variable_group x,y;
+function f;
+f=x^6+y-1;
+
+END;
+
+
+*************** version information ***************
+Bertini(TM) v1.5.1
+GMP v6.1.1, MPFR v3.1.4
+
+Authors:
+D.J. Bates, J.D. Hauenstein,
+A.J. Sommese, C.W. Wampler
+

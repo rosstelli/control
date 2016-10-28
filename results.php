@@ -17,7 +17,8 @@ return false;
 
 function downloadResults(name) {
   var element = document.createElement('a');
-  var content = document.getElementById('results_' + name).innerHTML;
+  var content = "<meta charset=\"UTF-8\">\n"
+        + document.getElementById('results_' + name).innerHTML;
   element.setAttribute('href', 'data:text/html;charset=utf-8,'
        + encodeURIComponent(content));
   element.setAttribute('download', name + '.html');
