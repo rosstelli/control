@@ -92,26 +92,6 @@ $standardTests = array(
 		array( 'human' ), // (supported file formats)
 		$doesNotSupportIniFile 
 	),
-
-	new NetworkTest
-	(
-		'test',
-		'Test Executable',
-		'This is a test to see if the test executable provided will run. If so appropriate output will be displayed.', 
-		'test', // (i.e. the name of the binary or shell script in bin/ that belongs to this test)
-		array( 'human' ), // (supported file formats)
-		$doesNotSupportIniFile 
-	),
-
-	new NetworkTest
-	(
-		'file',
-		'File Check',
-		'This outputs the file name', 
-		'file', // (i.e. the name of the binary or shell script in bin/ that belongs to this test)
-		array( 'human' ), // (supported file formats)
-		$doesNotSupportIniFile 
-	),
 	/*
 	// Add new tests here, in the following format:
 	new NetworkTest
