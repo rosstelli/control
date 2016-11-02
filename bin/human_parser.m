@@ -113,4 +113,17 @@ for rxn=1:num_of_reactions
     end
 end
 
+%# Get the key set of compounds, i.e. the compound names
+setOfCompounds = compounds.keySet();
+iterator = setOfCompounds.iterator();
+%#tmp = cell(compounds.size(), 1);
+%#count = 1;
+tmp= [""];
+while iterator.hasNext()
+  %#tmp(count) = iterator.next();
+  %#count = count + 1;
+  tmp = [tmp; iterator.next()];
+end
+compounds = tmp;
+
 end
