@@ -79,7 +79,6 @@ if( isset( $_SESSION['reaction_network'] ) and $_SESSION['reaction_network']->ge
 			$returnValue = 0;
 			if( isset( $_SESSION['detailed_output'] ) and $_SESSION['detailed_output'] ) $exec_string .= ' 2>&1';
 			else $exec_string .= ' 2> /dev/null';
-			echo $exec_string;
 			exec( $exec_string, $output, $returnValue );
 			foreach( $output as $line ) $temp .= "\n$line";
 		}
