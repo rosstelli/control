@@ -8,7 +8,7 @@
 
 
 function [reduced_determinant_val] = reduced_determinant(txtName, doMassAction)
-
+   
 % Setup the font.
 fprintf(stdout(), "<p style='font-family: monospace;'>\n");
 
